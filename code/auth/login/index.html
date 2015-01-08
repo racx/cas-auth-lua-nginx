@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>Tela de Login</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <link rel="stylesheet" type="text/css" href="//assets.locaweb.com.br/locastyle/3.3.3/stylesheets/locastyle.css">
+
+</head>
+<body>
+  <div id='alert' style='display:none'  class="ls-alert-danger"> Acesso negado.</div>
+<div class="ls-login-parent">
+  <div class="ls-login-inner">
+
+    <div class="ls-login-box">
+      <h2 >Login Information</h2>
+      <form action="/auth" role="form" method="post" class="ls-form ls-login-form">
+        <fieldset>
+
+          <label class="ls-label">
+            <input id="username" name="username" class="ls-login-bg-user ls-field-lg" type="text" placeholder="Usuário" required autofocus>
+            <b class="ls-label-text ls-hidden-accessible">Usuário</b>
+          </label>
+
+          <label class="ls-label">
+            <b class="ls-label-text ls-hidden-accessible">Senha</b>
+            <input id="password" name="password" class="ls-login-bg-password ls-field-lg" type="password" placeholder="Senha" required>
+          </label>
+
+          <input type="submit" value="Entrar" class="ls-btn-primary ls-btn-block ls-btn-lg">
+
+        </fieldset>
+      </form>
+    </div>
+
+  </div>
+</div>
+<script>
+
+function getQueryString() {
+  var result = {}, queryString = location.search.slice(1),
+      re = /([^&=]+)=([^&]*)/g, m;
+
+  while (m = re.exec(queryString)) {
+    result[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+  }
+
+  return result;
+}
+
+var err = getQueryString()["err"];
+if (err=='1'){
+  document.getElementById('alert').style.display = 'block';
+}
+
+</script>
+</body>
+</html>

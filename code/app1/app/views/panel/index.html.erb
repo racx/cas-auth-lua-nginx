@@ -1,0 +1,113 @@
+    <div class="ls-topbar">
+
+      <!-- Notification bar -->
+      <div class="ls-notification-topbar">
+        <!-- Link of support/help -->
+        <div class="ls-alerts-list">
+          <a href="#" class="ls-ico-bell-o" data-counter="5" data-ls-module="topbarCurtain" data-target="#ls-notification-curtain"><span>Notificações</span></a>
+          <a href="#" class="ls-ico-bullhorn" data-ls-module="topbarCurtain" data-target="#ls-help-curtain"><span>Ajuda</span></a>
+          <a href="#" class="ls-ico-question" data-ls-module="topbarCurtain" data-target="#ls-feedback-curtain"><span>Sugestões</span></a>
+        </div>
+
+        <!-- User details -->
+        <div data-ls-module="dropdown" class="ls-dropdown ls-user-account">
+          <a href="#" class="ls-ico-user">
+            <%= @user%>
+            <small>(lstyle)</small>
+          </a>
+          <nav class="ls-dropdown-nav ls-user-menu">
+            <ul>
+              <li><a href="#">Conta</a></li>
+              <li><a href="/logout">Logout</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+      <span class="ls-show-sidebar ls-ico-menu"></span>
+
+      <!-- Nome do produto/marca -->
+      <h1 class="ls-brand-name"><a class="ls-ico-earth" href="/locawebstyle/documentacao/exemplos/boilerplate">Boilerplate</a></h1>
+    </div>
+
+    <main class="ls-main ">
+      <div class="container-fluid">
+        <h1 class="ls-title-intro ls-ico-home">Página inicial</h1>
+
+        <p>Este é nosso boilerplate com a estrutura inicial de um projeto. Você pode <a href="http://locaweb.github.io/locawebstyle/documentacao/exemplos/">ver exemplos completos neste link</a>.</p>
+        <p>Confira nossa <a href="http://locaweb.github.io/locawebstyle/documentacao/componentes/">documentação com os componentes</a> que você usar aqui.</p>
+        <hr>
+        <h6 class="ls-title-5">English disclaimer</h6>
+        <p>This is your boilerplate with start structure. You can see <a href="http://locaweb.github.io/locawebstyle/documentacao/exemplos/">completed examples here</a>.</p>
+        <p>Check out the docs to <a href="http://locaweb.github.io/locawebstyle/documentacao/componentes/">see the components that you can use</a>.</p>
+
+      </div>
+    </main>
+
+    <aside class="ls-sidebar">
+      <!-- Defails of user account -->
+      <div data-ls-module="dropdown" class="ls-dropdown ls-user-account">
+        <a href="#" class="ls-ico-user">
+          Allyson McClure
+          <small>(lstyle)</small>
+        </a>
+        <nav class="ls-dropdown-nav ls-user-menu">
+          <ul>
+            <li><a href="#">submenu</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <nav class="ls-menu">
+        <ul>
+          <li><a href="#" class="ls-ico-home">Página inicial</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <aside class="ls-notification">
+      <nav class="ls-notification-list" id="ls-notification-curtain" style="left: 1716px;">
+        <h3 class="ls-title-2">Notificações</h3>
+        <ul>
+          <li class="ls-dismissable">
+            <a href="#">Blanditiis est est dolorem iure voluptatem eos deleniti repellat et laborum consequatur</a>
+            <a href="#" data-ls-module="dismiss" class="ls-ico-close ls-close-notification"></a>
+          </li>
+          <li class="ls-dismissable">
+            <a href="#">Similique eos rerum perferendis voluptatibus</a>
+            <a href="#" data-ls-module="dismiss" class="ls-ico-close ls-close-notification"></a>
+          </li>
+          <li class="ls-dismissable">
+            <a href="#">Qui numquam iusto suscipit nisi qui unde</a>
+            <a href="#" data-ls-module="dismiss" class="ls-ico-close ls-close-notification"></a>
+          </li>
+          <li class="ls-dismissable">
+            <a href="#">Nisi aut assumenda dignissimos qui ea in deserunt quo deleniti dolorum quo et consequatur</a>
+            <a href="#" data-ls-module="dismiss" class="ls-ico-close ls-close-notification"></a>
+          </li>
+          <li class="ls-dismissable">
+            <a href="#">Sunt consequuntur aut aut a molestiae veritatis assumenda voluptas nam placeat eius ad</a>
+            <a href="#" data-ls-module="dismiss" class="ls-ico-close ls-close-notification"></a>
+          </li>
+        </ul>
+      </nav>
+
+      <nav class="ls-notification-list" id="ls-help-curtain" style="left: 1756px;">
+        <h3 class="ls-title-2">Feedback</h3>
+        <ul>
+          <li><a href="#">&gt; quo fugiat facilis nulla perspiciatis consequatur</a></li>
+          <li><a href="#">&gt; enim et labore repellat enim debitis</a></li>
+        </ul>
+      </nav>
+
+      <nav class="ls-notification-list" id="ls-feedback-curtain" style="left: 1796px;">
+        <h3 class="ls-title-2">Ajuda</h3>
+        <ul>
+          <li class="ls-txt-center hidden-xs">
+            <a href="#" class="ls-btn-dark ls-btn-tour">Fazer um Tour</a>
+          </li>
+          <li><a href="#">&gt; Guia</a></li>
+          <li><a href="#">&gt; Wiki</a></li>
+        </ul>
+      </nav>
+    </aside>

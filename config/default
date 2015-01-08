@@ -1,0 +1,108 @@
+upstream app1 {
+  server localhost:3000;
+}
+
+lua_package_path "/var/www/auth/lib/?.lua;;";
+
+server {
+  listen 80;
+
+  set $root /var/www;
+  set $backend http://app1;
+  set $cas_server https://<your-cas-domain-name.com>/v1/tickets;
+  set $secret "mary had a little lamb";
+
+  index index.html index.htm;
+  root $root;
+
+  location / {
+    resolver 8.8.8.8;  # use Google's open DNS server
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Real-IP $remote_addr;
+
+    # just serve static files like images, without bothering Rails
+    if (-f $request_filename) {
+      break;
+    }
+    rewrite_by_lua '
+
+      local access = require "casauth.access" 
+      local cas_server = ngx.var.cas_server
+      local secret = ngx.var.secret 
+      local auth = access:new(cas_server, secret)
+
+      if ngx.var.uri == "/auth" then
+        ngx.req.read_body()
+        local args, err = ngx.req.get_post_args()
+        if not args then
+            ngx.say("failed to get post args: ", err)
+            return
+        end
+
+        local username = args["username"]
+        local password = args["password"]
+        local status = auth:authenticate(username, password)
+
+        if status == true then
+          return ngx.redirect("/panel")
+        else
+          return ngx.redirect("/login?err=1")
+        end
+      end
+
+      if ngx.var.uri == "/panel" then
+
+        local status = auth:authorize()
+
+        if status == false then
+          ngx.exec("/login?err=1")
+        end
+      end
+
+    ';
+
+    proxy_pass $backend;
+
+  }
+
+  location /login {
+    root $root/auth;
+  }
+
+  location /logout {
+    header_filter_by_lua '
+      ngx.header["Set-Cookie"] = "usrid=deleted; path=/; Expires=Thu, 01-Jan-1970 00:00:01 GMT"
+      ngx.header["Set-Cookie"] = "usrtoken=deleted; path=/; Expires=Thu, 01-Jan-1970 00:00:01 GMT"
+    ';
+
+    rewrite_by_lua '
+      ngx.exec("/login")
+    ';
+  }
+
+  location /hello {
+    default_type 'text/plain';
+    set_unescape_uri $name $arg_name;
+    set_if_empty $name "Anonymous";
+    echo "Hello, $name!";
+  }
+
+  location /hellolua {
+    default_type 'text/plain';
+  
+    content_by_lua '
+      local name = ngx.var.arg_name or "Anonymous"
+      ngx.say("Hello, ", name, "!")
+    ';
+  }
+
+  location /signature {
+      set $secret_key 'secret-key';
+      set $string_to_sign "some-string-to-sign";
+      set_hmac_sha1 $signature $secret_key $string_to_sign;
+      set_encode_base64 $signature $signature;
+      echo $signature;
+  }
+
+}
